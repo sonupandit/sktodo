@@ -39,3 +39,7 @@
 .form-check-label.text-decoration-line-through{
   opacity: 0.5;
 }
+
+.list-group-item{
+  transition: all 0.3s;
+}

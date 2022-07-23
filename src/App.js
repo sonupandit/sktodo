@@ -119,7 +119,7 @@ const setContrast = rgb =>
     <div className="container pt-5">
     
         <div className="row justify-content-center">
-          <div className="col-4">
+          <div className="col-12 col-md-8 col-lg-6 col-xl-5">
             <form action="" onSubmit={ e => e.preventDefault()}>
                 <div className="input-group mb-3">
                     <input className="form-control" ref={inputRef} onChange={()=>setName(inputRef.current.value)} value={name} type="text" />
@@ -144,7 +144,7 @@ const setContrast = rgb =>
                           todos.map((todo)=>{
                             return (
                               <li className="list-group-item d-flex align-items-center p-0" style={{backgroundColor:todo.bgcolor, color:todo.color}} key={todo.id}>
-                                <div className="form-check  lh-1 py-2 ps-5 mb-0">
+                                <div className="form-check lh-sm py-2 ps-4 ms-2 mb-0">
                                   <input onChange={(e)=> handleCompleted(todo.id, e)} className="form-check-input" type="checkbox" checked={todo.isCompleted} id={todo.id} />
                                   <label className={`form-check-label ${todo.isCompleted &&"text-decoration-line-through"}`} htmlFor={todo.id}>
                                      {todo.name}
