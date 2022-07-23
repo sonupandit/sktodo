@@ -144,13 +144,13 @@ const setContrast = rgb =>
                           todos.map((todo)=>{
                             return (
                               <li className="list-group-item d-flex align-items-center p-0" style={{backgroundColor:todo.bgcolor, color:todo.color}} key={todo.id}>
-                                <div className="form-check py-2 px-5 mb-0">
+                                <div className="form-check  lh-1 py-2 ps-5 mb-0">
                                   <input onChange={(e)=> handleCompleted(todo.id, e)} className="form-check-input" type="checkbox" checked={todo.isCompleted} id={todo.id} />
                                   <label className={`form-check-label ${todo.isCompleted &&"text-decoration-line-through"}`} htmlFor={todo.id}>
                                      {todo.name}
                                   </label>
                                 </div> 
-                                <div className="icons ms-auto ps-3">
+                                <div className="icons d-flex ms-auto ps-3">
                                   <button onClick={()=> handleEdit(todo)} className="btn p-2" style={{color:todo.color}}><AiOutlineEdit /></button>
                                   <button onClick={()=> handleDeleteTodo(todo.id)} className="btn p-2" style={{color:todo.color}}><AiOutlineDelete /></button>
                                   <input style={{width:"1px",height:"1px",opacity:0}} onChange={(e)=>handleChangeColor(todo.id, e)} value={todo.bgcolor} type="color" id={`a${todo.id}`} />
