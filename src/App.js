@@ -132,13 +132,13 @@ const setContrast = rgb =>
              <div className="row">
                  <div className="col-12">
                      <ul className="list-unstyled list-group">
-                        {!todos.length ? <p className="text-center">Your list is clear!</p>:""}
+                        {!data.length ? <p className="text-center">Your list is clear!</p>:""}
 
-                        <ul className="nav justify-content-center">
+                  {data.length ?  <ul className="nav justify-content-center">
                             <li className="p-2"><button onClick={()=>{setTodos([...data]);setFilterStatus("all")}} className={`btn ${filterStatus === "all"? "btn-primary":"btn-light"}`}>All</button></li>
                             <li className="p-2"><button onClick={handleFilterCompleted} className={`btn ${filterStatus === "completed"? "btn-primary":"btn-light"}`}>Completed</button></li>
                             <li className="p-2"><button onClick={handleFilterUnCompleted} className={`btn ${filterStatus === "uncompleted"? "btn-primary":"btn-light"}`}>Uncompleted</button></li>
-                        </ul>
+                        </ul>:"" }
 
                         {                          
                           todos.map((todo)=>{
