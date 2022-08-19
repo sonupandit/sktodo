@@ -21,12 +21,20 @@ function App() {
 
 
   useEffect(()=>{   
-    setTodos([...data]);
+    setTodos([...data]);   
+   
+    if(filterStatus === "completed"){
+      let todos = data.filter(v => v.isCompleted !== false);
+      setTodos([...todos]);      
+    }
+
+    if(filterStatus === "uncompleted"){
+      let todos = data.filter(v => v.isCompleted !== true)
+      setTodos([...todos]);
+    }  
   },[data])
 
-  useEffect(()=>{   
-    
-  },[todos])
+
 
 
   const hexToRgb = hex => {
@@ -72,11 +80,16 @@ const setContrast = rgb =>
 
 
   function handleDeleteTodo(id){      
-     todoDispatch(deleteTodo(id))   
+     todoDispatch(deleteTodo(id));
+     if(editTodo.id === id){
+      setName("")
+      setIsEdit(false);
+     }
   }
 
   function handleCompleted(id, e){
-    todoDispatch(completedTodo({id, isCompleted:e.currentTarget.checked}))   
+    todoDispatch(completedTodo({id, isCompleted:e.currentTarget.checked}));
+       
  }
 
  const throttle = (func, limit) => {
@@ -114,6 +127,12 @@ const setContrast = rgb =>
   setTodos([...todos]);
  }
 
+ const filterMsg = ()=>{
+  if(todos.length === 0 && (filterStatus === "Completed" || filterStatus === "Uncompleted")){
+    return "No Todos in this Category..."
+  }
+}
+
   
   return (
     <div className="container pt-5">
@@ -139,22 +158,29 @@ const setContrast = rgb =>
                             <li className="p-2"><button onClick={handleFilterCompleted} className={`btn ${filterStatus === "completed"? "btn-primary":"btn-light"}`}>Completed</button></li>
                             <li className="p-2"><button onClick={handleFilterUnCompleted} className={`btn ${filterStatus === "uncompleted"? "btn-primary":"btn-light"}`}>Uncompleted</button></li>
                         </ul>:"" }
-
-                        {                          
+                        
+                        {              
                           todos.map((todo)=>{
                             return (
                               <li className="list-group-item d-flex align-items-center p-0" style={{backgroundColor:todo.bgcolor, color:todo.color}} key={todo.id}>
                                 <div className="form-check lh-sm py-2 ps-4 ms-2 mb-0">
+
                                   <input onChange={(e)=> handleCompleted(todo.id, e)} className="form-check-input" type="checkbox" checked={todo.isCompleted} id={todo.id} />
+
                                   <label className={`form-check-label ${todo.isCompleted &&"text-decoration-line-through"}`} htmlFor={todo.id}>
                                      {todo.name}
                                   </label>
                                 </div> 
+
                                 <div className="icons d-flex ms-auto ps-3">
                                   <button onClick={()=> handleEdit(todo)} className="btn p-2" style={{color:todo.color}}><AiOutlineEdit /></button>
+
                                   <button onClick={()=> handleDeleteTodo(todo.id)} className="btn p-2" style={{color:todo.color}}><AiOutlineDelete /></button>
+
                                   <input style={{width:"1px",height:"1px",opacity:0}} onChange={(e)=>handleChangeColor(todo.id, e)} value={todo.bgcolor} type="color" id={`a${todo.id}`} />
+
                                   <label htmlFor={`a${todo.id}`} className="btn p-2" style={{color:todo.color}}><IoIosColorPalette /></label>
+                                  
                                 </div>
                               </li>
                             )
