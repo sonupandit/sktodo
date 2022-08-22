@@ -69,7 +69,7 @@ const setContrast = rgb =>
           id: editTodo.id,
           name
          }))
-         setName("")
+         setName("");
          setIsEdit(false);
        }
     }else{
